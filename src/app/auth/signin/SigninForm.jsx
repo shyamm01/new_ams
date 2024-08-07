@@ -1,29 +1,58 @@
-import { signinHandler } from "@/server-actions/authActions"
-import Link from "next/link"
+"use client";
 
-export const SigninForm = () => {
+import { loginHandler } from '@/server-actions/authActions';
+import Link from 'next/link'
+import { useRouter } from 'next/navigation';
+
+import React from 'react'
+import { toast } from 'sonner';
+import ErrorMessage from './ErrorMessage';
+
+
+const SigninForm = () => {
+
+    const router = useRouter();
+    const error = router.query;
+    // console.log(error);
+
+
     return (
-        <form action={async (formData) => {
-            const email = formData.get('email');
-            const password = formData.get('password');
-            if (!email) {
-                alert('Please enter your email');
+        <form action={
+            async (formData) => {
+                const emailOrUsername = formData.get('username');
+                const password = formData.get('password');
+                if (!emailOrUsername) {
+                    return toast.error('Email/Username is required')
+                }
+                if (!password) {
+                    return toast.error('Password is required')
+                }
+                const toastId = toast.loading("Logging In")
+                const error = await loginHandler({ username: emailOrUsername, password });
+                console.log(error,"error");
+                
+                if (!error) {
+                    toast.success('Login successful', {
+                        id: toastId
+                    });
+                } else {
+                    toast.error(error, {
+                        id: toastId
+                    })
+                }
             }
-            if (!password) {
-                alert('Please enter your password');
-            }
-            await signinHandler({ email, password })
-        }}>
+        }
+        >
             <div className="mb-3">
                 <label className="form-label" htmlFor="card-email">
-                    Email address
+                    Email/Username
                 </label>
                 <input
                     className="form-control"
                     id="card-email"
-                    type="email"
-                    name="email"
-                    placeholder="Email"
+                    type="text"
+                    name="username"
+                    placeholder="Email or Username"
                     required
                 />
             </div>
@@ -76,7 +105,10 @@ export const SigninForm = () => {
                 >
                     Log in
                 </button>
+                <ErrorMessage />
             </div>
         </form>
     )
 }
+
+export default SigninForm

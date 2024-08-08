@@ -16,7 +16,19 @@ const SignupForm = () => {
           type="text"
           name="name"
           autoComplete="on"
-          id="card-name"
+          id="name"
+        />
+      </div>
+      <div className="mb-3">
+        <label className="form-label" htmlFor="card-name">
+          Username
+        </label>
+        <input
+          className="form-control"
+          type="text"
+          name="username"
+          autoComplete="on"
+          id="username"
         />
       </div>
       <div className="mb-3">
@@ -28,7 +40,7 @@ const SignupForm = () => {
           type="email"
           name="email"
           autoComplete="on"
-          id="card-email"
+          id="emailaddress"
         />
       </div>
       <div className="row gx-2">
@@ -41,7 +53,7 @@ const SignupForm = () => {
             className="form-control"
             type="password"
             autoComplete="on"
-            id="card-password"
+            id="password"
           />
         </div>
         <div className="mb-3 col-sm-6">
@@ -53,7 +65,7 @@ const SignupForm = () => {
             type="password"
             name="confirmPassword"
             autoComplete="on"
-            id="card-confirm-password"
+            id="confirm-password"
           />
         </div>
       </div>

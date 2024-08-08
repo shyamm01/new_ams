@@ -29,12 +29,13 @@ const SigninForm = () => {
                 }
                 const toastId = toast.loading("Logging In")
                 const error = await loginHandler({ username: emailOrUsername, password });
-                console.log(error,"error");
-                
+                console.log(error, "error");
+
                 if (!error) {
                     toast.success('Login successful', {
                         id: toastId
                     });
+                    router.refresh()
                 } else {
                     toast.error(error, {
                         id: toastId

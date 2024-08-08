@@ -3,12 +3,12 @@ import { signIn } from "@/auth";
 import { hash } from "bcryptjs";
 import { redirect } from "next/navigation";
 import { prisma } from "../../prisma/prisma";
-import { log } from "console";
-import { ZodError } from "zod";
+
 
 export const signupHandler = async (formData) => {
   const name = formData.get("name");
   const email = formData.get("email");
+  const username = formData.get("username");
   const password = formData.get("password");
   const confirmPassword = formData.get("confirmPassword");
 

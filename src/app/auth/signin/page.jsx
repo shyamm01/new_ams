@@ -2,13 +2,15 @@ import Image from "next/image";
 import Link from "next/link";
 import SigninForm from "./SigninForm";
 import { auth } from "@/auth";
-
+import { redirect } from 'next/navigation'
 const page = async () => {
 
   const session = await auth();
 
+  console.log(session?.user,"hfghfgf");
+
   if (session?.user) {
-    return <Redirect to="/" />
+    return redirect('/')
   }
 
   return (

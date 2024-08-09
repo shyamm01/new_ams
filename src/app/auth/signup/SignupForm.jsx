@@ -1,11 +1,31 @@
 "use client";
 import { signupHandler } from "@/server-actions/authActions";
+import { Erica_One } from "next/font/google";
+import { use } from "react";
+import { toast } from "sonner";
 const SignupForm = () => {
+
   return (
     <form
       action={async (formData) => {
-        await signupHandler(formData);
-      }}
+        const name = formData.get("name");
+        const email = formData.get("email");
+        const username = formData.get("username");
+        const password = formData.get("password");
+        const confirmPassword = formData.get("confirmPassword");
+        const toastId = toast.loading("Loading...")
+        const error = await signupHandler({ name, email, username, password, confirmPassword });
+        if (error) {
+          toast.error(error, {
+            id: toastId,
+          })
+        } else {
+          toast.success("Signup successful", {
+            id: toastId,
+          })
+        }
+      }
+      }
     >
       <div className="mb-3">
         <label className="form-label" htmlFor="card-name">

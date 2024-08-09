@@ -2,8 +2,11 @@ import Image from "next/image";
 import Link from "next/link";
 import SignupForm from "./SignupForm";
 
+export const metadata = {
+  title: 'Signup',
+};
+
 export default function SignIn() {
- 
   return (
     <main className="main" id="top">
       <div className="container-fluid">

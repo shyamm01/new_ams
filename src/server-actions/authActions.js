@@ -49,10 +49,10 @@ export const signupHandler = async (formData) => {
   }
 };
 
-export const loginHandler = async ({ username, password }) => {
+export const loginHandler = async ({ email, password }) => {
   try {
     await signIn("credentials", {
-      username,
+      email,
       password,
       redirect: true,
       callbackUrl: "/",

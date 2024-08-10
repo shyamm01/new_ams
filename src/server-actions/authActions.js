@@ -1,7 +1,6 @@
 "use server";
 import { signIn } from "@/auth";
 import { hash } from "bcryptjs";
-import { redirect } from "next/navigation";
 import { prisma } from "../../prisma/prisma";
 import { signupSchema } from "@/lib/zod";
 import { ZodError } from "zod";
@@ -16,12 +15,11 @@ export const signupHandler = async (formData) => {
         email: email,
       },
     });
-    console.log(user);
 
     if (user) {
-      throw "Email already exists";
+      throw new Error("Email already exists");
     }
-    // ... create user
+
     const hashedPassword = await hash(password, 12);
     const newUser = await prisma.user.create({
       data: {
@@ -29,18 +27,24 @@ export const signupHandler = async (formData) => {
         username,
         email,
         password: hashedPassword,
+        roleId: "clznqlyt300003bzb7v4w625m",
       },
     });
+
     if (!newUser) {
-      throw "Something went wrong, try again";
+      throw new Error("Something went wrong, try again");
     }
-    redirect("/auth/signin");
+
+    // Redirect to sign in after successful signup
+    // redirect("/auth/signin");
+    return;
   } catch (error) {
     if (error instanceof ZodError) {
-      console.log(error.errors[0].message);
+      console.error(error.errors[0].message);
       return error.errors[0].message;
     } else {
-      return error;
+      console.error(error.message || error);
+      return String(error.message || error);
     }
   }
 };

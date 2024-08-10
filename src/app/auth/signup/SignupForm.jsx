@@ -1,6 +1,7 @@
 "use client";
 import { signupHandler } from "@/server-actions/authActions";
 import { Erica_One } from "next/font/google";
+import { redirect } from "next/navigation";
 import { use } from "react";
 import { toast } from "sonner";
 const SignupForm = () => {
@@ -23,6 +24,7 @@ const SignupForm = () => {
           toast.success("Signup successful", {
             id: toastId,
           })
+          redirect("/auth/signin")
         }
       }
       }

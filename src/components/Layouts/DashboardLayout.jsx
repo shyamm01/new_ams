@@ -1,8 +1,21 @@
-"use client"
 import React from 'react'
 import Sidebar from '../Sidebar/Sidebar'
+import { auth } from '@/auth'
+import { menuForSubscription } from '@/server-actions/menuAction'
 
-const DashboardLayout = () => {
+const DashboardLayout = async () => {
+
+  const session = await auth()
+  if (session.user?.subscriptionId) {
+    const menu = await menuForSubscription(session.user?.subscriptionId);
+    console.log(menu,"hdjhsdjgjhg");
+    
+  }
+
+  
+
+
+
   return (
     <main className="main" id="top">
       <div className="container-fluid" data-layout="container">

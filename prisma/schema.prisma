@@ -13,10 +13,12 @@ model User {
   username           String?              @unique
   email              String?              @unique
   emailVerified      DateTime?
-  password           String             
+  password           String
   image              String?
   createdAt          DateTime             @default(now())
   updatedAt          DateTime             @updatedAt
+  role               Role                 @relation(fields: [roleId], references: [id])
+  roleId             String
   Account            Account?
   Authenticator      Authenticator[]
   Session            Session[]
@@ -102,11 +104,13 @@ model Menu {
   parent          Menu?                     @relation("MenuHierarchy", fields: [parentId], references: [id])
   children        Menu[]                    @relation("MenuHierarchy")
   order           Int
+  icon            String?
   menuMappings    SubscriptionMenuMapping[]
   userPermissions UserMenuPermission[]
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+  MenuItemRole MenuItemRole[]
 }
 
 model SubscriptionMenuMapping {
@@ -138,4 +142,22 @@ model Permission {
   name                 String
   UserMenuPermission   UserMenuPermission? @relation(fields: [userMenuPermissionId], references: [id])
   userMenuPermissionId String?
+}
+
+model Role {
+  id          String         @id @default(cuid())
+  name        String         @unique
+  description String?
+  menuItems   MenuItemRole[]
+  User        User[]
+}
+
+model MenuItemRole {
+  id         String @id @default(uuid())
+  role       Role   @relation(fields: [roleId], references: [id])
+  roleId     String
+  menuItem   Menu   @relation(fields: [menuItemId], references: [id])
+  menuItemId String
+
+  @@unique([menuItemId, roleId])
 }

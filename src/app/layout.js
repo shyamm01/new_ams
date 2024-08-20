@@ -7,6 +7,8 @@ const inter = Inter({ subsets: ["latin"] });
 
 import { Metadata } from "next";
 import BoostrapClient from "@/components/BoostrapClient/BoostrapClient";
+import UserLayout from "@/components/Layouts/UserLayout";
+import { auth } from "@/auth";
 
 export const metadata = {
   title: {
@@ -17,13 +19,17 @@ export const metadata = {
   metadataBase: new URL("https://next-learn-dashboard.vercel.sh"),
 };
 
-export default function RootLayout({ children }) {
+export default async function RootLayout({ children }) {
+  const session = await auth();
+
+
+
   return (
     <html lang="en">
       <body className={inter.className}>
-        {children}
-        <Toaster position="top-center"/>
-        <BoostrapClient/>
+        {session?.user ? <UserLayout>{children}</UserLayout> : children}
+        <Toaster position="top-center" />
+        <BoostrapClient />
       </body>
     </html>
   );

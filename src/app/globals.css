@@ -37672,3 +37672,27 @@ html[data-bs-theme="dark"] .bg-priority-low:checked {
   width: 1.0625em;
 }
 
+svg:not(:root).svg-inline--fa {
+  overflow: visible;
+}
+
+
+.svg-inline--fa.fa-w-16 {
+  width: 1em;
+}
+
+.fs-7 {
+  font-size: 1.44rem !important;
+}
+
+.svg-inline--fa {
+  display: inline-block;
+  font-size: inherit;
+  height: 1em;
+  overflow: visible;
+  vertical-align: -.125em;
+}
+
+.fa-icon-wait {
+  opacity: 1;
+}

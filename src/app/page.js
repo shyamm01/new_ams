@@ -2,7 +2,8 @@ import Image from "next/image";
 import styles from "./page.module.css";
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";
-import DashboardLayout from "@/components/Layouts/DashboardLayout";
+import Cards from "@/components/Cards/Cards";
+
 
 export default async function Home() {
   const session = await auth();
@@ -19,7 +20,7 @@ export default async function Home() {
 
   return (
     <>
-      <DashboardLayout />
+      <Cards />
     </>
   );
 }

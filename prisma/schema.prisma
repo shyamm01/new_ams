@@ -8,7 +8,7 @@ datasource db {
 }
 
 model User {
-  id                 String               @id @default(cuid())
+  id                 Int                  @id @default(autoincrement())
   name               String?
   username           String?              @unique
   email              String?              @unique
@@ -18,18 +18,18 @@ model User {
   createdAt          DateTime             @default(now())
   updatedAt          DateTime             @updatedAt
   role               Role                 @relation(fields: [roleId], references: [id])
-  roleId             String
+  roleId             Int
   Account            Account?
   Authenticator      Authenticator[]
   Session            Session[]
   Subscription       Subscription?        @relation(fields: [subscriptionId], references: [id])
-  subscriptionId     String?
+  subscriptionId     Int?
   UserMenuPermission UserMenuPermission[]
 }
 
 model Account {
-  id                       String   @id @default(cuid())
-  userId                   String   @unique
+  id                       Int      @id @default(autoincrement())
+  userId                   Int      @unique
   type                     String
   provider                 String
   providerAccountId        String
@@ -50,9 +50,9 @@ model Account {
 }
 
 model Session {
-  id           String   @id @default(cuid())
+  id           Int      @id @default(autoincrement())
   sessionToken String   @unique
-  userId       String
+  userId       Int
   expires      DateTime
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
@@ -71,7 +71,7 @@ model VerificationToken {
 
 model Authenticator {
   credentialID         String  @unique
-  userId               String
+  userId               Int
   providerAccountId    String
   credentialPublicKey  String
   counter              Int
@@ -84,7 +84,7 @@ model Authenticator {
 }
 
 model Subscription {
-  id           String                    @id @default(uuid())
+  id           Int                       @id @default(autoincrement())
   name         String
   price        Decimal
   duration     Int
@@ -97,10 +97,10 @@ model Subscription {
 }
 
 model Menu {
-  id              String                    @id @default(uuid())
+  id              Int                       @id @default(autoincrement())
   name            String
   url             String
-  parentId        String?
+  parentId        Int?
   parent          Menu?                     @relation("MenuHierarchy", fields: [parentId], references: [id])
   children        Menu[]                    @relation("MenuHierarchy")
   order           Int
@@ -114,22 +114,22 @@ model Menu {
 }
 
 model SubscriptionMenuMapping {
-  id             String       @id @default(uuid())
+  id             Int          @id @default(autoincrement())
   subscription   Subscription @relation(fields: [subscriptionId], references: [id])
-  subscriptionId String
+  subscriptionId Int
   menu           Menu         @relation(fields: [menuId], references: [id])
-  menuId         String
+  menuId         Int
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
 model UserMenuPermission {
-  id         String       @id @default(uuid())
+  id         Int          @id @default(autoincrement())
   user       User         @relation(fields: [userId], references: [id])
-  userId     String
+  userId     Int
   menu       Menu         @relation(fields: [menuId], references: [id])
-  menuId     String
+  menuId     Int
   permission Permission[]
 
   createdAt DateTime @default(now())
@@ -137,15 +137,15 @@ model UserMenuPermission {
 }
 
 model Permission {
-  id                   String              @id @default(uuid())
+  id                   Int                 @id @default(autoincrement())
   value                String
   name                 String
   UserMenuPermission   UserMenuPermission? @relation(fields: [userMenuPermissionId], references: [id])
-  userMenuPermissionId String?
+  userMenuPermissionId Int?
 }
 
 model Role {
-  id          String         @id @default(cuid())
+  id          Int            @id @default(autoincrement())
   name        String         @unique
   description String?
   menuItems   MenuItemRole[]
@@ -153,11 +153,11 @@ model Role {
 }
 
 model MenuItemRole {
-  id         String @id @default(uuid())
-  role       Role   @relation(fields: [roleId], references: [id])
-  roleId     String
-  menuItem   Menu   @relation(fields: [menuItemId], references: [id])
-  menuItemId String
+  id         Int  @id @default(autoincrement())
+  role       Role @relation(fields: [roleId], references: [id])
+  roleId     Int
+  menuItem   Menu @relation(fields: [menuItemId], references: [id])
+  menuItemId Int
 
   @@unique([menuItemId, roleId])
 }

@@ -27,7 +27,7 @@ export const signupHandler = async (formData) => {
         username,
         email,
         password: hashedPassword,
-        roleId: "clznqlyt300003bzb7v4w625m",
+        roleId: 4,
       },
     });
 

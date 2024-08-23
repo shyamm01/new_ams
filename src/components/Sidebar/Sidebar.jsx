@@ -1,6 +1,36 @@
 import React from 'react'
+import { prisma } from '../../../prisma/prisma'
 
 const Sidebar = () => {
+
+
+  const menu = async () => {
+    const res = await prisma.menu.findMany({
+      where:{
+        userPermissions:{
+          every:{
+            userId:3
+          }
+        }
+      },
+      include: {
+        children: {
+          include: {
+            children: {
+              include: {
+                children: true
+              }
+            }
+          }
+        }
+      }
+    });
+    console.log(res,"res");
+  };
+
+  menu()
+
+
   return (
     <nav className="navbar navbar-light navbar-vertical navbar-expand-xl navbar-card">
       <div className="d-flex align-items-center">

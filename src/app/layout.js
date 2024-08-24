@@ -22,10 +22,17 @@ export const metadata = {
 export default async function RootLayout({ children }) {
   const session = await auth();
 
-
-
   return (
     <html lang="en">
+      <head>
+        <link
+          rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.3/css/all.min.css"
+          integrity="sha512-YourIntegrityHash"
+          crossOrigin="anonymous"
+          referrerPolicy="no-referrer"
+        />
+      </head>
       <body className={inter.className}>
         {session?.user ? <UserLayout>{children}</UserLayout> : children}
         <Toaster position="top-center" />

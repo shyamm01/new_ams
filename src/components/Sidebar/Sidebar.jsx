@@ -1,35 +1,8 @@
-import React from 'react'
-import { prisma } from '../../../prisma/prisma'
+
+
+import {SidemenuSection} from './SidemenuSection'
 
 const Sidebar = () => {
-
-
-  const menu = async () => {
-    const res = await prisma.menu.findMany({
-      where:{
-        userPermissions:{
-          every:{
-            userId:3
-          }
-        }
-      },
-      include: {
-        children: {
-          include: {
-            children: {
-              include: {
-                children: true
-              }
-            }
-          }
-        }
-      }
-    });
-    console.log(res,"res");
-  };
-
-  menu()
-
 
   return (
     <nav className="navbar navbar-light navbar-vertical navbar-expand-xl navbar-card">
@@ -172,205 +145,208 @@ const Sidebar = () => {
                 </li>
               </ul>
             </li>
-            <a
-              className="nav-link dropdown-indicator"
-              href="#e-commerce"
-              role="button"
-              data-bs-toggle="collapse"
-              aria-expanded="false"
-              aria-controls="e-commerce"
-            >
-              <div className="d-flex align-items-center">
-                <span className="nav-link-icon">
-                  <svg
-                    className="svg-inline--fa fa-shopping-cart fa-w-18"
-                    aria-hidden="true"
-                    focusable="false"
-                    data-prefix="fas"
-                    data-icon="shopping-cart"
-                    role="img"
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 576 512"
-                    data-fa-i2svg=""
+            <li className="nav-item">
+              <a
+                className="nav-link dropdown-indicator"
+                href="#e-commerce"
+                role="button"
+                data-bs-toggle="collapse"
+                aria-expanded="false"
+                aria-controls="e-commerce"
+              >
+                <div className="d-flex align-items-center">
+                  <span className="nav-link-icon">
+                    <svg
+                      className="svg-inline--fa fa-shopping-cart fa-w-18"
+                      aria-hidden="true"
+                      focusable="false"
+                      data-prefix="fas"
+                      data-icon="shopping-cart"
+                      role="img"
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 576 512"
+                      data-fa-i2svg=""
+                    >
+                      <path
+                        fill="currentColor"
+                        d="M528.12 301.319l47.273-208C578.806 78.301 567.391 64 551.99 64H159.208l-9.166-44.81C147.758 8.021 137.93 0 126.529 0H24C10.745 0 0 10.745 0 24v16c0 13.255 10.745 24 24 24h69.883l70.248 343.435C147.325 417.1 136 435.222 136 456c0 30.928 25.072 56 56 56s56-25.072 56-56c0-15.674-6.447-29.835-16.824-40h209.647C430.447 426.165 424 440.326 424 456c0 30.928 25.072 56 56 56s56-25.072 56-56c0-22.172-12.888-41.332-31.579-50.405l5.517-24.276c3.413-15.018-8.002-29.319-23.403-29.319H218.117l-6.545-32h293.145c11.206 0 20.92-7.754 23.403-18.681z"
+                      />
+                    </svg>
+                    {/* <span class="fas fa-shopping-cart"></span> Font Awesome fontawesome.com */}
+                  </span>
+                  <span className="nav-link-text ps-1">E commerce</span>
+                </div>
+              </a>
+              <ul className="nav collapse" id="e-commerce">
+                <li className="nav-item">
+                  <a
+                    className="nav-link dropdown-indicator"
+                    href="#product"
+                    data-bs-toggle="collapse"
+                    aria-expanded="false"
+                    aria-controls="e-commerce"
                   >
-                    <path
-                      fill="currentColor"
-                      d="M528.12 301.319l47.273-208C578.806 78.301 567.391 64 551.99 64H159.208l-9.166-44.81C147.758 8.021 137.93 0 126.529 0H24C10.745 0 0 10.745 0 24v16c0 13.255 10.745 24 24 24h69.883l70.248 343.435C147.325 417.1 136 435.222 136 456c0 30.928 25.072 56 56 56s56-25.072 56-56c0-15.674-6.447-29.835-16.824-40h209.647C430.447 426.165 424 440.326 424 456c0 30.928 25.072 56 56 56s56-25.072 56-56c0-22.172-12.888-41.332-31.579-50.405l5.517-24.276c3.413-15.018-8.002-29.319-23.403-29.319H218.117l-6.545-32h293.145c11.206 0 20.92-7.754 23.403-18.681z"
-                    />
-                  </svg>
-                  {/* <span class="fas fa-shopping-cart"></span> Font Awesome fontawesome.com */}
-                </span>
-                <span className="nav-link-text ps-1">E commerce</span>
-              </div>
-            </a>
-            <ul className="nav collapse" id="e-commerce">
-              <li className="nav-item">
-                <a
-                  className="nav-link dropdown-indicator"
-                  href="#product"
-                  data-bs-toggle="collapse"
-                  aria-expanded="false"
-                  aria-controls="e-commerce"
-                >
-                  <div className="d-flex align-items-center">
-                    <span className="nav-link-text ps-1">Product</span>
-                  </div>
-                </a>
-                {/* more inner pages*/}
-                <ul className="nav collapse" id="product">
-                  <li className="nav-item">
-                    <a
-                      className="nav-link"
-                      href="app/e-commerce/product/product-list.html"
-                    >
-                      <div className="d-flex align-items-center">
-                        <span className="nav-link-text ps-1">
-                          Product list
-                        </span>
-                      </div>
-                    </a>
-                    {/* more inner pages*/}
-                  </li>
-                  <li className="nav-item">
-                    <a
-                      className="nav-link"
-                      href="app/e-commerce/product/product-grid.html"
-                    >
-                      <div className="d-flex align-items-center">
-                        <span className="nav-link-text ps-1">
-                          Product grid
-                        </span>
-                      </div>
-                    </a>
-                    {/* more inner pages*/}
-                  </li>
-                  <li className="nav-item">
-                    <a
-                      className="nav-link"
-                      href="app/e-commerce/product/product-details.html"
-                    >
-                      <div className="d-flex align-items-center">
-                        <span className="nav-link-text ps-1">
-                          Product details
-                        </span>
-                      </div>
-                    </a>
-                    {/* more inner pages*/}
-                  </li>
-                  <li className="nav-item">
-                    <a
-                      className="nav-link"
-                      href="app/e-commerce/product/add-product.html"
-                    >
-                      <div className="d-flex align-items-center">
-                        <span className="nav-link-text ps-1">
-                          Add product
-                        </span>
-                      </div>
-                    </a>
-                    {/* more inner pages*/}
-                  </li>
-                </ul>
-              </li>
-              <li className="nav-item">
-                <a
-                  className="nav-link dropdown-indicator"
-                  href="#orders"
-                  data-bs-toggle="collapse"
-                  aria-expanded="false"
-                  aria-controls="e-commerce"
-                >
-                  <div className="d-flex align-items-center">
-                    <span className="nav-link-text ps-1">Orders</span>
-                  </div>
-                </a>
-                {/* more inner pages*/}
-                <ul className="nav collapse" id="orders">
-                  <li className="nav-item">
-                    <a
-                      className="nav-link"
-                      href="app/e-commerce/orders/order-list.html"
-                    >
-                      <div className="d-flex align-items-center">
-                        <span className="nav-link-text ps-1">Order list</span>
-                      </div>
-                    </a>
-                    {/* more inner pages*/}
-                  </li>
-                  <li className="nav-item">
-                    <a
-                      className="nav-link"
-                      href="app/e-commerce/orders/order-details.html"
-                    >
-                      <div className="d-flex align-items-center">
-                        <span className="nav-link-text ps-1">
-                          Order details
-                        </span>
-                      </div>
-                    </a>
-                    {/* more inner pages*/}
-                  </li>
-                </ul>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link" href="app/e-commerce/customers.html">
-                  <div className="d-flex align-items-center">
-                    <span className="nav-link-text ps-1">Customers</span>
-                  </div>
-                </a>
-                {/* more inner pages*/}
-              </li>
-              <li className="nav-item">
-                <a
-                  className="nav-link"
-                  href="app/e-commerce/customer-details.html"
-                >
-                  <div className="d-flex align-items-center">
-                    <span className="nav-link-text ps-1">
-                      Customer details
-                    </span>
-                  </div>
-                </a>
-                {/* more inner pages*/}
-              </li>
-              <li className="nav-item">
-                <a
-                  className="nav-link"
-                  href="app/e-commerce/shopping-cart.html"
-                >
-                  <div className="d-flex align-items-center">
-                    <span className="nav-link-text ps-1">Shopping cart</span>
-                  </div>
-                </a>
-                {/* more inner pages*/}
-              </li>
-              <li className="nav-item">
-                <a className="nav-link" href="app/e-commerce/checkout.html">
-                  <div className="d-flex align-items-center">
-                    <span className="nav-link-text ps-1">Checkout</span>
-                  </div>
-                </a>
-                {/* more inner pages*/}
-              </li>
-              <li className="nav-item">
-                <a className="nav-link" href="app/e-commerce/billing.html">
-                  <div className="d-flex align-items-center">
-                    <span className="nav-link-text ps-1">Billing</span>
-                  </div>
-                </a>
-                {/* more inner pages*/}
-              </li>
-              <li className="nav-item">
-                <a className="nav-link" href="app/e-commerce/invoice.html">
-                  <div className="d-flex align-items-center">
-                    <span className="nav-link-text ps-1">Invoice</span>
-                  </div>
-                </a>
-                {/* more inner pages*/}
-              </li>
-            </ul>
-
+                    <div className="d-flex align-items-center">
+                      <span className="nav-link-text ps-1">Product</span>
+                    </div>
+                  </a>
+                  {/* more inner pages*/}
+                  <ul className="nav collapse" id="product">
+                    <li className="nav-item">
+                      <a
+                        className="nav-link"
+                        href="app/e-commerce/product/product-list.html"
+                      >
+                        <div className="d-flex align-items-center">
+                          <span className="nav-link-text ps-1">
+                            Product list
+                          </span>
+                        </div>
+                      </a>
+                      {/* more inner pages*/}
+                    </li>
+                    <li className="nav-item">
+                      <a
+                        className="nav-link"
+                        href="app/e-commerce/product/product-grid.html"
+                      >
+                        <div className="d-flex align-items-center">
+                          <span className="nav-link-text ps-1">
+                            Product grid
+                          </span>
+                        </div>
+                      </a>
+                      {/* more inner pages*/}
+                    </li>
+                    <li className="nav-item">
+                      <a
+                        className="nav-link"
+                        href="app/e-commerce/product/product-details.html"
+                      >
+                        <div className="d-flex align-items-center">
+                          <span className="nav-link-text ps-1">
+                            Product details
+                          </span>
+                        </div>
+                      </a>
+                      {/* more inner pages*/}
+                    </li>
+                    <li className="nav-item">
+                      <a
+                        className="nav-link"
+                        href="app/e-commerce/product/add-product.html"
+                      >
+                        <div className="d-flex align-items-center">
+                          <span className="nav-link-text ps-1">
+                            Add product
+                          </span>
+                        </div>
+                      </a>
+                      {/* more inner pages*/}
+                    </li>
+                  </ul>
+                </li>
+                <li className="nav-item">
+                  <a
+                    className="nav-link dropdown-indicator"
+                    href="#orders"
+                    data-bs-toggle="collapse"
+                    aria-expanded="false"
+                    aria-controls="e-commerce"
+                  >
+                    <div className="d-flex align-items-center">
+                      <span className="nav-link-text ps-1">Orders</span>
+                    </div>
+                  </a>
+                  {/* more inner pages*/}
+                  <ul className="nav collapse" id="orders">
+                    <li className="nav-item">
+                      <a
+                        className="nav-link"
+                        href="app/e-commerce/orders/order-list.html"
+                      >
+                        <div className="d-flex align-items-center">
+                          <span className="nav-link-text ps-1">Order list</span>
+                        </div>
+                      </a>
+                      {/* more inner pages*/}
+                    </li>
+                    <li className="nav-item">
+                      <a
+                        className="nav-link"
+                        href="app/e-commerce/orders/order-details.html"
+                      >
+                        <div className="d-flex align-items-center">
+                          <span className="nav-link-text ps-1">
+                            Order details
+                          </span>
+                        </div>
+                      </a>
+                      {/* more inner pages*/}
+                    </li>
+                  </ul>
+                </li>
+                <li className="nav-item">
+                  <a className="nav-link" href="app/e-commerce/customers.html">
+                    <div className="d-flex align-items-center">
+                      <span className="nav-link-text ps-1">Customers</span>
+                    </div>
+                  </a>
+                  {/* more inner pages*/}
+                </li>
+                <li className="nav-item">
+                  <a
+                    className="nav-link"
+                    href="app/e-commerce/customer-details.html"
+                  >
+                    <div className="d-flex align-items-center">
+                      <span className="nav-link-text ps-1">
+                        Customer details
+                      </span>
+                    </div>
+                  </a>
+                  {/* more inner pages*/}
+                </li>
+                <li className="nav-item">
+                  <a
+                    className="nav-link"
+                    href="app/e-commerce/shopping-cart.html"
+                  >
+                    <div className="d-flex align-items-center">
+                      <span className="nav-link-text ps-1">Shopping cart</span>
+                    </div>
+                  </a>
+                  {/* more inner pages*/}
+                </li>
+                <li className="nav-item">
+                  <a className="nav-link" href="app/e-commerce/checkout.html">
+                    <div className="d-flex align-items-center">
+                      <span className="nav-link-text ps-1">Checkout</span>
+                    </div>
+                  </a>
+                  {/* more inner pages*/}
+                </li>
+                <li className="nav-item">
+                  <a className="nav-link" href="app/e-commerce/billing.html">
+                    <div className="d-flex align-items-center">
+                      <span className="nav-link-text ps-1">Billing</span>
+                    </div>
+                  </a>
+                  {/* more inner pages*/}
+                </li>
+                <li className="nav-item">
+                  <a className="nav-link" href="app/e-commerce/invoice.html">
+                    <div className="d-flex align-items-center">
+                      <span className="nav-link-text ps-1">Invoice</span>
+                    </div>
+                  </a>
+                  {/* more inner pages*/}
+                </li>
+              </ul>
+            </li>
+            <SidemenuSection />
           </ul>
+
           <div className="settings my-3">
             <div className="card shadow-none">
               <div className="card-body alert mb-0" role="alert">

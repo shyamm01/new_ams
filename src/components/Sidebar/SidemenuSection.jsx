@@ -1,21 +1,8 @@
 
-import React from 'react'
 import { prisma } from '../../../prisma/prisma';
 import Link from 'next/link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCoffee, faAppleAlt, faCar, faShoppingCart } from '@fortawesome/free-solid-svg-icons';
-import { library } from '@fortawesome/fontawesome-svg-core';
 
-library.add(faCoffee, faAppleAlt, faCar,faShoppingCart);
-
-export const Icon = ({iconClass}) => {
-    // console.log(iconClass, "hjhjg");
-    const iconParts = iconClass?.split(' ');
-    const prefix = iconParts[0]?.replace('fa-', '');
-    const iconName = iconParts[1]?.replace('fa-', '');
-
-    return <FontAwesomeIcon icon={[prefix, iconName]} size="xs" />;
-}
 
 
 
@@ -33,12 +20,11 @@ const NavItem = ({ item }) => {
                 <div className="d-flex align-items-center">
                     <span className="nav-link-icon">
                         {/* <Icon iconClass="fa-solid fa-shopping-cart" size="xs" /> */}
-                        <FontAwesomeIcon icon="fas fa-shopping-cart" />
+                        <FontAwesomeIcon icon={item.icon || `fas fa-car`} />
                     </span>
                     <span className="nav-link-text ps-1">{item.name}</span>
                 </div>
             </Link>
-
             {item.children && item.children.length > 0 && (
                 <ul className="nav collapse" id={item.url}>
                     {item.children.map((child, index) => (
@@ -50,8 +36,8 @@ const NavItem = ({ item }) => {
     );
 };
 
-
 export const SidemenuSection = async () => {
+   
     const menu = await prisma.menu.findMany({
         where: {
             userPermissions: {

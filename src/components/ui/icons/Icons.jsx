@@ -1,8 +1,7 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCoffee, faAppleAlt, faCar, faShoppingCart } from '@fortawesome/free-solid-svg-icons';
+import { faChartPie, faCartPlus, faPlay, faInfinity, faRecycle, faTruck, faLayerGroup } from '@fortawesome/free-solid-svg-icons';
 import { library } from '@fortawesome/fontawesome-svg-core';
 
-library.add(faCoffee, faAppleAlt, faCar,faShoppingCart);
+library.add(faChartPie, faCartPlus, faPlay, faInfinity, faRecycle, faTruck, faLayerGroup);
 
 // export const Icon = ({iconClass}) => {
 //     const iconParts = iconClass?.split(' ');

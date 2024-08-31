@@ -104,13 +104,13 @@ model Menu {
   parentId        Int?
   parent          Menu?                     @relation("MenuHierarchy", fields: [parentId], references: [id])
   children        Menu[]                    @relation("MenuHierarchy")
-  order           Int
+  sortOrder           Int
   icon            String?
   menuMappings    SubscriptionMenuMapping[]
   userPermissions UserMenuPermission[]
 
   createdAt    DateTime       @default(now())
-  updatedAt    DateTime       @updatedAt
+  updatedAt    DateTime?       @updatedAt
   MenuItemRole MenuItemRole[]
 }
 
